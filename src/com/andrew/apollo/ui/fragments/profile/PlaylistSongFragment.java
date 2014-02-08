@@ -133,7 +133,11 @@ public class PlaylistSongFragment extends Fragment implements LoaderCallbacks<Li
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Create the adpater
-        mAdapter = new ProfileSongAdapter(getActivity(), R.layout.edit_track_list_item);
+        mAdapter = new ProfileSongAdapter(
+                getActivity(),
+                R.layout.edit_track_list_item,
+                ProfileSongAdapter.DISPLAY_PLAYLIST_SETTING
+        );
     }
 
     /**
@@ -236,6 +240,10 @@ public class PlaylistSongFragment extends Fragment implements LoaderCallbacks<Li
         menu.add(GROUP_ID, FragmentMenuItems.USE_AS_RINGTONE, Menu.NONE,
                 getString(R.string.context_menu_use_as_ringtone));
 
+        // Remove the song from playlist
+        menu.add(GROUP_ID, FragmentMenuItems.REMOVE_FROM_PLAYLIST, Menu.NONE,
+                getString(R.string.context_menu_remove_from_playlist));
+
         // Delete the song
         menu.add(GROUP_ID, FragmentMenuItems.DELETE, Menu.NONE,
                 getString(R.string.context_menu_delete));
@@ -270,10 +278,10 @@ public class PlaylistSongFragment extends Fragment implements LoaderCallbacks<Li
                     }).show(getFragmentManager(), "CreatePlaylist");
                     return true;
                 case FragmentMenuItems.PLAYLIST_SELECTED:
-                    final long mPlaylistId = item.getIntent().getLongExtra("playlist", 0);
+                    final long playlistId = item.getIntent().getLongExtra("playlist", 0);
                     MusicUtils.addToPlaylist(getActivity(), new long[] {
                         mSelectedId
-                    }, mPlaylistId);
+                    }, playlistId);
                     return true;
                 case FragmentMenuItems.MORE_BY_ARTIST:
                     NavUtils.openArtistProfile(getActivity(), mArtistName);
@@ -287,6 +295,12 @@ public class PlaylistSongFragment extends Fragment implements LoaderCallbacks<Li
                     }, null).show(getFragmentManager(), "DeleteDialog");
                     SystemClock.sleep(10);
                     mAdapter.notifyDataSetChanged();
+                    getLoaderManager().restartLoader(LOADER, null, this);
+                    return true;
+                case FragmentMenuItems.REMOVE_FROM_PLAYLIST:
+                    mAdapter.remove(mSong);
+                    mAdapter.notifyDataSetChanged();
+                    MusicUtils.removeFromPlaylist(getActivity(), mSong.mSongId, mPlaylistId);
                     getLoaderManager().restartLoader(LOADER, null, this);
                     return true;
                 default:

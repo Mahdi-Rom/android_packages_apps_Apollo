@@ -15,7 +15,7 @@
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">Music</string>
+    <string name="app_name">Apollo</string>
 
     <!-- Page titles -->
     <string name="page_recent">Ostatnio słuchane</string>
@@ -94,6 +94,7 @@
     <string name="context_menu_open_in_play_store">Otwórz w sklepie Play</string>
     <string name="context_menu_remove_from_recent">Usuń z ostatnio słuchanych</string>
     <string name="context_menu_use_as_ringtone">Ustaw jako dzwonek</string>
+    <string name="context_menu_remove_from_playlist">Usuń z playlisty</string>
 
     <!-- Content descriptions -->
     <string name="accessibility_play">Odtwórz</string>

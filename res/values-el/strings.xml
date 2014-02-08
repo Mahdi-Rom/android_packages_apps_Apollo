@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 Andrew Neal
+<!--
+     Copyright (C) 2012-2014 Andrew Neal
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,7 +15,7 @@
      limitations under the License.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Music</string>
+    <string name="app_name">Apollo</string>
     <string name="page_recent">Πρόσφατα</string>
     <string name="page_artists">Καλλιτέχνες</string>
     <string name="page_albums">Άλμπουμ</string>
@@ -53,6 +54,7 @@
     <string name="sort_order_entry_track_list">Λίστα κομματιών</string>
     <string name="sort_order_entry_number_of_songs">Αριθμός τραγουδιών</string>
     <string name="sort_order_entry_number_of_albums">Αριθμός άλμπουμ</string>
+    <string name="sort_order_entry_filename">Όνομα αρχείου</string>
     <string name="playlist_favorite">Αγαπημένο</string>
     <string name="playlist_favorites">Αγαπημένα</string>
     <string name="playlist_last_added">Προστέθηκαν πρόσφατα</string>
@@ -79,6 +81,7 @@
     <string name="context_menu_open_in_play_store">Άνοιγμα στο Play Store</string>
     <string name="context_menu_remove_from_recent">Αφαίρεση από πρόσφατα</string>
     <string name="context_menu_use_as_ringtone">Χρήση ως ήχο κλήσης</string>
+    <string name="context_menu_remove_from_playlist">Αφαίρεση από τη λίστα</string>
     <string name="accessibility_play">Αναπαραγωγή</string>
     <string name="accessibility_pause">Παύση</string>
     <string name="accessibility_next">Επόμενο</string>

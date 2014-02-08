@@ -536,25 +536,6 @@ public class MusicPlaybackService extends Service {
         // Initialize the notification helper
         mNotificationHelper = new NotificationHelper(this);
 
-        // delay until external storage is available
-        // at least try it :)
-        if (ImageCache.needToWaitForExternalStorage(this)){
-            final int maxRetryCount = 10;
-            int i = 0;
-            while (true){
-                try {
-                    Thread.sleep(1000);
-                } catch(InterruptedException e){
-                }
-                if (!ImageCache.needToWaitForExternalStorage(this)){
-                    break;
-                }
-                if (++i > maxRetryCount){
-                    Log.e(TAG, "Failed to setup cache at external storage - fallback to internal");
-                    break;
-                }
-            }
-        }
         // Initialize the image fetcher
         mImageFetcher = ImageFetcher.getInstance(this);
         // Initialize the image cache
@@ -945,7 +926,9 @@ public class MusicPlaybackService extends Service {
                     mPlayPos = -1;
                     closeCursor();
                 } else {
-                    if (mPlayPos >= mPlayListLen) {
+                    if (mShuffleMode != SHUFFLE_NONE) {
+                        mPlayPos = getNextPosition(true);
+                    } else if (mPlayPos >= mPlayListLen) {
                         mPlayPos = 0;
                     }
                     final boolean wasPlaying = isPlaying();
@@ -1001,10 +984,12 @@ public class MusicPlaybackService extends Service {
     }
 
     private void updateCursor(final String selection, final String[] selectionArgs) {
-        closeCursor();
+        synchronized (this) {
+            closeCursor();
 
-        mCursor = openCursorAndGoToFirst(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                PROJECTION, selection, selectionArgs);
+            mCursor = openCursorAndGoToFirst(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    PROJECTION, selection, selectionArgs);
+        }
 
         long albumId = getAlbumId();
         if (albumId >= 0) {
@@ -1365,7 +1350,8 @@ public class MusicPlaybackService extends Service {
                 ? RemoteControlClient.PLAYSTATE_PLAYING
                 : RemoteControlClient.PLAYSTATE_PAUSED;
 
-        if (ApolloUtils.hasJellyBeanMR2() && what.equals(POSITION_CHANGED)) {
+        if (ApolloUtils.hasJellyBeanMR2()
+                && (what.equals(PLAYSTATE_CHANGED) || what.equals(POSITION_CHANGED))) {
             mRemoteControlClient.setPlaybackState(playState, position(), 1.0f);
         } else if (what.equals(PLAYSTATE_CHANGED)) {
             mRemoteControlClient.setPlaybackState(playState);
@@ -1390,6 +1376,10 @@ public class MusicPlaybackService extends Service {
                     .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, duration())
                     .putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, albumArt)
                     .apply();
+
+            if (ApolloUtils.hasJellyBeanMR2()) {
+                mRemoteControlClient.setPlaybackState(playState, position(), 1.0f);
+            }
         }
     }
 
@@ -1502,9 +1492,11 @@ public class MusicPlaybackService extends Service {
                 SystemClock.sleep(3000);
                 updateCursor(mPlayList[mPlayPos]);
             }
-            closeCursor();
-            mOpenFailedCounter = 20;
-            openCurrentAndNext();
+            synchronized (this) {
+                closeCursor();
+                mOpenFailedCounter = 20;
+                openCurrentAndNext();
+            }
             if (!mPlayer.isInitialized()) {
                 mPlayListLen = 0;
                 return;
@@ -2526,7 +2518,14 @@ public class MusicPlaybackService extends Service {
          *            you want to play
          */
         public void setNextDataSource(final String path) {
-            mCurrentMediaPlayer.setNextMediaPlayer(null);
+            try {
+                mCurrentMediaPlayer.setNextMediaPlayer(null);
+            } catch (IllegalArgumentException e) {
+                Log.i(TAG, "Next media player is current one, continuing");
+            } catch (IllegalStateException e) {
+                Log.e(TAG, "Media player not initialized!");
+                return;
+            }
             if (mNextMediaPlayer != null) {
                 mNextMediaPlayer.release();
                 mNextMediaPlayer = null;

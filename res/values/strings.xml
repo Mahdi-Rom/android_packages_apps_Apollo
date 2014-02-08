@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 Andrew Neal
+<!--
+     Copyright (C) 2012-2013 Andrew Neal
+     Copyright (C) 2012-2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,10 +14,10 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">Music</string>
+    <string name="app_name">Apollo</string>
 
     <!-- Page titles -->
     <string name="page_recent">Recent</string>
@@ -62,6 +64,7 @@
     <string name="sort_order_entry_track_list">Track list</string>
     <string name="sort_order_entry_number_of_songs">Number of songs</string>
     <string name="sort_order_entry_number_of_albums">Number of albums</string>
+    <string name="sort_order_entry_filename">Filename</string>
 
     <!-- Default playlist names -->
     <string name="playlist_favorite">Favorite</string> <!-- used in voice search processing only -->
@@ -94,6 +97,7 @@
     <string name="context_menu_open_in_play_store">Open in Play Store</string>
     <string name="context_menu_remove_from_recent">Remove from recent</string>
     <string name="context_menu_use_as_ringtone">Use as ringtone</string>
+    <string name="context_menu_remove_from_playlist">Remove from playlist</string>
 
     <!-- Content descriptions -->
     <string name="accessibility_play">Play</string>
