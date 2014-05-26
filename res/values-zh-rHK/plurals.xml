@@ -18,30 +18,30 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <plurals name="Nartists">
-    <item quantity="other"><xliff:g id="count">%d</xliff:g>人のアーティスト</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> 位演出者</item>
   </plurals>
   <plurals name="Nalbums">
-    <item quantity="other"><xliff:g id="count">%d</xliff:g>枚のアルバム</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> 張專輯</item>
   </plurals>
   <plurals name="Nsongs">
-    <item quantity="other"><xliff:g id="count">%d</xliff:g>曲</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> 首歌曲</item>
   </plurals>
   <plurals name="Ngenres">
-    <item quantity="other"><xliff:g id="count">%d</xliff:g>個のジャンル</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> 種類型</item>
   </plurals>
   <plurals name="NNNtrackstoplaylist">
-    <item quantity="other"><xliff:g id="number" example="27">%d</xliff:g>曲をプレイリストに追加しました。</item>
+    <item quantity="other">已添加 <xliff:g id="number" example="27">%d</xliff:g> 首歌曲到播放清單中。</item>
   </plurals>
   <plurals name="NNNtracksfromplaylist">
-    <item quantity="other"><xliff:g id="number" example="27">%d</xliff:g>曲をプレイリストから削除しました。</item>
+    <item quantity="other">已從播放清單中移除 <xliff:g id="number" example="27">%d</xliff:g> 首歌。</item>
   </plurals>
   <plurals name="NNNtrackstoqueue">
-    <item quantity="other"><xliff:g id="number" example="27">%d</xliff:g>曲をキューに追加しました。</item>
+    <item quantity="other">已添加 <xliff:g id="number" example="27">%d</xliff:g> 首歌曲到隊列中。</item>
   </plurals>
   <plurals name="NNNtrackstofavorites">
-    <item quantity="other"><xliff:g id="number" example="27">%d</xliff:g>曲をお気に入りに追加しました。</item>
+    <item quantity="other">已添加 <xliff:g id="number" example="27">%d</xliff:g> 首歌曲到最愛收藏中。</item>
   </plurals>
   <plurals name="NNNtracksdeleted">
-    <item quantity="other"><xliff:g id="songs_to_delete">%d</xliff:g>曲を削除しました。</item>
+    <item quantity="other">已刪除 <xliff:g id="songs_to_delete">%d</xliff:g> 首歌曲。</item>
   </plurals>
 </resources>
